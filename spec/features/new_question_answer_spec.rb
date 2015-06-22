@@ -17,9 +17,13 @@ feature 'User posts an answer to a question' do
 
     visit "/questions/#{question.id}"
 
-    save_and_open_page
-
     expect(page).to have_content("Answers")
+    expect(page).to have_button("Add Answer")
+
+    fill_in "Body", with: "This is the answer to your question!"
+    click_button("Add Answer")
+
+
     expect(page).to have_content("This is the answer to your question!")
 
   end

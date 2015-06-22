@@ -5,3 +5,11 @@
 <p><%= @question.created_at %></p>
 
 <h2>Answers</h2>
+
+
+<%= form_for @answer do |f| %>
+  <%= f.label :body %>
+  <%= f.text_area :body %>
+
+  <%= f.submit "Add Answer" %>
+<% end %>
