@@ -5,6 +5,8 @@ class QuestionsController < ApplicationController
 
   def show
     @question = Question.find(params[:id])
+    @answer = Answer.new
+    @answers = @question.answers
   end
 
   def new
@@ -15,7 +17,7 @@ class QuestionsController < ApplicationController
     @question = Question.new(title: params[:question][:title], body: params[:question][:body])
     if @question.valid?
       @question.save
-      redirect_to "/questions/#{@question.id}"
+      redirect_to @question
     else
       render :new
     end

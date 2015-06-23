@@ -7,9 +7,16 @@
 <h2>Answers</h2>
 
 
-<%= form_for @answer do |f| %>
+<%= form_for [@question, @answer] do |f| %>
   <%= f.label :body %>
   <%= f.text_area :body %>
 
   <%= f.submit "Add Answer" %>
+<% end %>
+
+<% if !@answers.empty? %>
+  <% @answers.each do |answer| %>
+  <%= answer.body %>
+  <p>Answered by: <%= answer.user.email %></p>
+  <% end %>
 <% end %>

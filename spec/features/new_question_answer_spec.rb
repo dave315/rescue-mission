@@ -12,19 +12,31 @@ require 'rails_helper'
 
 feature 'User posts an answer to a question' do
   let(:question) { FactoryGirl.create(:question) }
+
   scenario 'User submits valid answer' do
     question
+    body = "This is the answer to your question FUCKING 50 LINES LONG BITCH!"
+    user = FactoryGirl.create(:user)
+
+    visit new_user_session_path
+
+    fill_in 'Email', with: user.email
+    fill_in 'Password', with: user.password
+
+    click_button 'Log in'
 
     visit "/questions/#{question.id}"
+
+
 
     expect(page).to have_content("Answers")
     expect(page).to have_button("Add Answer")
 
-    fill_in "Body", with: "This is the answer to your question!"
+    fill_in "Body", with: body
     click_button("Add Answer")
+save_and_open_page
 
-
-    expect(page).to have_content("This is the answer to your question!")
+    expect(page).to have_content(body)
 
   end
 end
