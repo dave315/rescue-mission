@@ -23,4 +23,16 @@ class QuestionsController < ApplicationController
     end
   end
 
+  def edit
+    @question = Question.find(params[:id])
+  end
+
+  def update
+    @question = Question.update(params[:id], title: params[:question][:title], body: params[:question][:body])
+    if @question.valid?
+      redirect_to @question, notice: "You have updated the question!"
+    else
+      render :edit
+    end
+  end
 end

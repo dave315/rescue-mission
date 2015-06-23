@@ -19,7 +19,6 @@ class AnswersController < ActionController::Base
       flash[:alert] = "Failed to save answer"
       redirect_to @question
     end
-
   end
 
 end
