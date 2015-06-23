@@ -10,10 +10,18 @@
 
 feature 'User views question details' do
   let(:new_question) { FactoryGirl.create(:question) }
-  let (:user) { FactoryGirl.create(:user) }
 
   scenario 'user clicks on question' do
     new_question
+    user = FactoryGirl.create(:user)
+
+    visit new_user_session_path
+
+    fill_in 'Email', with: user.email
+    fill_in 'Password', with: user.password
+
+    click_button 'Log in'
+
     visit questions_path
 
     click_link(new_question.title)

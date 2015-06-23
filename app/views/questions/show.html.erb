@@ -4,16 +4,20 @@
 <p><%= @question.body %></p>
 <p><%= @question.created_at %></p>
 
-<%= link_to 'Edit Question', edit_question_path %>
+<% if current_user.id == @question.user_id %>
+
+  <%= link_to 'Edit Question', edit_question_path %>
+  <%= link_to 'Delete Question', question_path, method: :delete %>
+<% end %>
 
 <h2>Answers</h2>
-
 
 <%= form_for [@question, @answer] do |f| %>
   <%= f.label :body %>
   <%= f.text_area :body %>
 
   <%= f.submit "Add Answer" %>
+
 <% end %>
 
 <% if !@answers.empty? %>

@@ -1,6 +1,13 @@
 <p> index </p>
 
-<% @questions.each do |question| %>
-  <p><a href="/questions/<%= question.id %>"><%= question.title %></a><br>
-     <%= question.body %></p>
+
+<% if !@questions.nil? %>
+  <% @questions.each do |question| %>
+    <p><a href="/questions/<%= question.id %>"><%= question.title %></a><br>
+       <%= question.body %></p>
+  <% end %>
 <% end %>
+
+<p>
+    <%= link_to 'Add New Question', new_question_path %>
+</p>

@@ -14,7 +14,8 @@ class QuestionsController < ApplicationController
   end
 
   def create
-    @question = Question.new(title: params[:question][:title], body: params[:question][:body])
+    @question = Question.new(title: params[:question][:title], body: params[:question][:body], user_id: current_user.id)
+
     if @question.valid?
       @question.save
       redirect_to @question
@@ -25,6 +26,18 @@ class QuestionsController < ApplicationController
 
   def edit
     @question = Question.find(params[:id])
+  end
+
+  def destroy
+    @question = Question.find(params[:id])
+    unless @question.answers.nil?
+      @question.answers.each do |answer|
+        answer.destroy
+      end
+    end
+    @question.destroy
+    flash[:notice] = "Question Deleted"
+    redirect_to root_path
   end
 
   def update
